@@ -1,0 +1,22 @@
+{
+  "name": "e2e_parabank_automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasbarrosqaanalyst/E2E_Parabank_Automation.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/lucasbarrosqaanalyst/E2E_Parabank_Automation/issues"
+  },
+  "homepage": "https://github.com/lucasbarrosqaanalyst/E2E_Parabank_Automation#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2"
+  }
+}
