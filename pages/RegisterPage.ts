@@ -19,19 +19,19 @@ export class RegisterPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.firstNameInput = page.locator('#customer.firstName');
-        this.lastNameInput = page.locator('#customer.lastName');
-        this.addressInput = page.locator('#customer.address.street');
-        this.cityInput = page.locator('#customer.address.city');
-        this.stateInput = page.locator('#customer.address.state');
-        this.zipCodeInput = page.locator('#customer.address.zipCode');
-        this.phoneNumberInput = page.locator('#customer.phoneNumber');
-        this.ssnInput = page.locator('#customer.ssn');
-        this.usernameInput = page.locator('#customer.username');
-        this.passwordInput = page.locator('#customer.password');
-        this.repeatedPasswordInput = page.locator('#repeatedPassword');
+        this.firstNameInput = page.locator('[id="customer.firstName"]');
+        this.lastNameInput = page.locator('[id="customer.lastName"]');
+        this.addressInput = page.locator('[id="customer.address.street"]');
+        this.cityInput = page.locator('[id="customer.address.city"]');
+        this.stateInput = page.locator('[id="customer.address.state"]');
+        this.zipCodeInput = page.locator('[id="customer.address.zipCode"]');
+        this.phoneNumberInput = page.locator('[id="customer.phoneNumber"]');
+        this.ssnInput = page.locator('[id="customer.ssn"]');
+        this.usernameInput = page.locator('[id="customer.username"]');
+        this.passwordInput = page.locator('[id="customer.password"]');
+        this.repeatedPasswordInput = page.locator('[id="repeatedPassword"]');
         this.registerButton = page.getByRole('button', { name: 'Register' });
-        this.lblUserAlreadyExistsError = page.locator('#customer.username.errors');
+        this.lblUserAlreadyExistsError = page.locator('[id="customer.username.errors"]');
     }
 
     async goTo(){
