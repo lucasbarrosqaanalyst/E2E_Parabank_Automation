@@ -68,7 +68,7 @@ export class RegisterPage {
         const successMessage = await this.page.getByText('Your account was created').textContent();
         if(headerText && successMessage){
             await expect(headerText).toBe(`Welcome ${username}`);
-            await expect(successMessage).toBe('Your account was created');
+            await expect(successMessage).toBe('Your account was created successfully. You are now logged in.');
         }
     }
 
