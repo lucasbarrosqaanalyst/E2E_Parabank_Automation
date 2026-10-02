@@ -2,9 +2,17 @@ import { test, expect } from '@playwright/test';
 import { RegisterPage } from '../pages/RegisterPage';
 import { faker } from '@faker-js/faker';
 import path from 'path';
+import fs from 'fs';
 
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
+test.beforeEach(async () => {
+  const authFile = 'playwright/.auth/user.json';
+  if(fs.existsSync(authFile)){
+    fs.writeFileSync(authFile, '{}', 'utf-8');
+    console.log('Cleared authentication file before testing.');
+  }
+});
 
 test('Register at Parabank', async ({ page }) => {
   const MAX_RETRIES = 3;
