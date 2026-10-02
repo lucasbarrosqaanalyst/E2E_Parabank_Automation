@@ -34,10 +34,12 @@ export class RegisterPage {
         this.lblUserAlreadyExistsError = page.locator('[id="customer.username.errors"]');
     }
 
+    // Access the page where the tests will be done
     async goTo(){
         await this.page.goto('https://parabank.parasoft.com/parabank/register.htm');
     }
 
+    // Fill the registration form with random data using faker.js library
     async fillRegistrationForm() {
         await this.firstNameInput.fill(faker.person.firstName());
         await this.lastNameInput.fill(faker.person.lastName());
@@ -49,20 +51,24 @@ export class RegisterPage {
         await this.ssnInput.fill(faker.string.numeric(9));
     }
 
+    // Fill the credentials fields with the provided username and password
     async fillCredentials(username: string, password: string) {
         await this.usernameInput.fill(username);
         await this.passwordInput.fill(password);
         await this.repeatedPasswordInput.fill(password);
     }
 
+    // Submit the registration form with button click
     async submitForm() {
         await this.registerButton.click();
     }
 
+    // Error must be visible when the username already exists in the system
     async isErrorVisible(){
         return await this.lblUserAlreadyExistsError.isVisible();
     }
 
+    // Verify that the registration was successful by checking the welcome message and success message
     async verifyRegistrationSuccess(username: string) {
         const headerText = await this.page.getByRole('heading', { name: `Welcome ${username}` }).textContent();
         const successMessage = await this.page.getByText('Your account was created').textContent();
