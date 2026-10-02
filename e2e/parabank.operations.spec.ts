@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { OpenNewAccountPage } from '../pages/OpenNewAccountPage';
+import { TransferFundsPage } from '../pages/TransferFundsPage';
 import { faker } from '@faker-js/faker';
 
-let newAccountId;
-let fromAccountId;
+let newAccountId: string | null = null;
+let fromAccountId: string | null = null;
 
 test.beforeEach(async ({ page }) => {
   // Navigate to the login page and log in with valid credentials
@@ -26,14 +27,19 @@ test('Open a new bank account', async ({ page }) => {
 
 
 test('Transfer funds', async ({ page }) => {
-  await page.getByRole('link', { name: 'Transfer Funds' }).click();
-  await page.getByRole('heading', { name: 'Transfer Funds' }).click();
-  await page.locator('#amount').click();
-  await page.locator('#amount').fill('1000');
-  await page.locator('#toAccountId').selectOption('18783');
-  await page.getByRole('button', { name: 'Transfer' }).click();
-  await page.getByRole('heading', { name: 'Transfer Complete!' }).click();
-  await page.getByText('$1000.00 has been transferred').click();
-  await page.getByText('See Account Activity for more').click();
+  if (newAccountId === null || newAccountId === undefined) {
+    throw new Error('New account ID was not found');
+  }
+  const transferPage = new TransferFundsPage(page);
+  await transferPage.goTo();
+  let transferAmount = '1000';
+  fromAccountId = await transferPage.getFromAccountId();
+  if (fromAccountId === null || fromAccountId === undefined) {
+    throw new Error('Origin account ID was not found');
+  }
+  await transferPage.fillTransferDetails(transferAmount, newAccountId);
+  await page.waitForLoadState('networkidle');
+  await transferPage.submitTransferForm();
+  await transferPage.verifyTransferSuccess(transferAmount, fromAccountId, newAccountId);
 });
 
